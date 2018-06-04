@@ -8,8 +8,11 @@ namespace Bukva
 {
     public partial class Form1 : Form
     {
+
         [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(int vKey);
+
+        KeyboardHook hook = new KeyboardHook();
 
         String[] buffer;
         Dictionary<string, string> letterTable;
@@ -115,7 +118,6 @@ namespace Bukva
             button1.BackColor = Color.SteelBlue;
             button1.Font = new Font(button1.Font, FontStyle.Bold);
             button1.ForeColor = Color.FromKnownColor(KnownColor.ControlText);
-            timer1.Start();
             this.Text = "Bukva: ON";
         }
 
@@ -127,65 +129,7 @@ namespace Bukva
             button2.BackColor = Color.SteelBlue;
             button2.Font = new Font(button2.Font, FontStyle.Bold);
             button2.ForeColor = Color.FromKnownColor(KnownColor.ControlText);
-            timer1.Stop();
             this.Text = "Bukva: OFF";
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            foreach (System.Int32 i in Enum.GetValues(typeof(Keys)))
-            {
-                if (GetAsyncKeyState(i) == -32767)
-                {
-                    if (!ModifierKeys.HasFlag(Keys.Control))
-                    {
-                        string txt;
-                        if ((Control.ModifierKeys & Keys.Shift) != 0)
-                            txt = Enum.GetName(typeof(Keys), i).ToUpper();
-                        else
-                            txt = Enum.GetName(typeof(Keys), i).ToLower();
-                        if (txt == "back")
-                        {
-                            if (letterTable.ContainsKey(buffer[0]) && (letterTable.ContainsKey(buffer[1])) && (letterTable.ContainsKey(buffer[2])) && (buffer[2].Contains(buffer[0] + buffer[1])))
-                            {
-                                if (letterTable.ContainsKey(buffer[0] + buffer[1]))
-                                    SendKeys.SendWait(letterTable[buffer[0] + buffer[1]]);
-                                else
-                                {
-                                    SendKeys.SendWait(letterTable[buffer[0]]);
-                                    SendKeys.SendWait(letterTable[buffer[1]]);
-                                }
-                                SendKeys.SendWait(letterTable[((buffer[2])[2]).ToString()]);
-                            }
-                            else if ((letterTable.ContainsKey(buffer[1])) && (letterTable.ContainsKey(buffer[2])) && (buffer[2].Contains(buffer[1])) && (buffer[1] != buffer[2]))
-                            {
-                                SendKeys.SendWait(letterTable[buffer[1]]);
-                                SendKeys.SendWait(letterTable[((buffer[2])[1]).ToString()]);
-                            }
-                        }
-                        
-                        if (letterTable.ContainsKey(buffer[1] + buffer[2] + txt))
-                        {
-                            if (!letterTable.ContainsKey(buffer[1] + buffer[2]))
-                                SendKeys.SendWait("{BACKSPACE}");
-                            SendKeys.SendWait("{BACKSPACE}");
-                            txt = buffer[1] + buffer[2] + txt;
-                        }
-                        else if (letterTable.ContainsKey(buffer[2] + txt))
-                        {
-                            SendKeys.SendWait("{BACKSPACE}");
-                            txt = buffer[2] + txt;
-                        }
-
-                        if (letterTable.ContainsKey(txt))
-                        {
-                            SendKeys.SendWait("{BACKSPACE}");
-                            SendKeys.SendWait(letterTable[txt]);
-                        }
-                        pushShift(txt);
-                    }
-                }
-            }
         }
 
         void pushShift(string str)
@@ -197,13 +141,56 @@ namespace Bukva
 
         void clearBuffer()
         {
-            buffer[0] = "";
-            buffer[1] = "";
-            buffer[2] = "";
+            buffer[0] = "9";
+            buffer[1] = "9";
+            buffer[2] = "9";
         }
+        
+        void SendKey(string toSend)
+        {
+            hook.CaptureKeys = false;
+            SendKeys.SendWait(toSend);
+            hook.CaptureKeys = true;
+        }
+
+        private void OnKeyPressed(object sender, KeyPressedArgs e)
+        {
+            string txt;
+            if ((Control.ModifierKeys & Keys.Shift) != 0)
+                txt = e.KeyPressed.ToString().ToUpper();
+            else
+                txt = e.KeyPressed.ToString().ToLower();
+
+            if (letterTable.ContainsKey(buffer[1] + buffer[2] + txt))
+            {
+                if (!letterTable.ContainsKey(buffer[1] + buffer[2]))
+                    SendKey("{BACKSPACE}");
+                //SendKey("{BACKSPACE}");
+                Back();
+                txt = buffer[1] + buffer[2] + txt;
+            }
+            else if (letterTable.ContainsKey(buffer[2] + txt))
+            {
+                hook.CaptureKeys = false;
+                SendKey("{BACKSPACE}");
+                Back();
+                hook.CaptureKeys = true;
+                txt = buffer[2] + txt;
+            }
+
+            if (letterTable.ContainsKey(txt))
+            {
+                SendKey(letterTable[txt]);
+            }
+            pushShift(txt);
+
+    }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            hook.HookKeyboard();
+            hook.OnKeyPressed += OnKeyPressed;
+
             this.button1.Width = ClientRectangle.Width / 2;
             this.button1.Height = ClientRectangle.Height;
 
