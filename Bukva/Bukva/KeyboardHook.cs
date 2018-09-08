@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
@@ -15,7 +16,7 @@ namespace Bukva
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
+        private static extern IntPtr SetWindowsHookEx(int idHook, CallBackHandler lpfn, IntPtr hMod, uint dwThreadId);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -24,14 +25,16 @@ namespace Bukva
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
         
-        public delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
+        public delegate IntPtr CallBackHandler(int nCode, IntPtr wParam, IntPtr lParam);
 
-        private LowLevelKeyboardProc proc;
+        private CallBackHandler proc;
         private IntPtr hookID = IntPtr.Zero;
 
         public event EventHandler<KeyPressedArgs> OnKeyPressed;
 
-        private bool trap = true;
+        private Dictionary<Key, bool> keysToTrap = new Dictionary<Key, bool>();
+
+        public bool Trap { get; set; }
 
         public KeyboardHook()
         {
@@ -54,10 +57,17 @@ namespace Bukva
                 int virtualKeyCode = Marshal.ReadInt32(lParam);
                 Key key = KeyInterop.KeyFromVirtualKey(virtualKeyCode);
 
-                OnKeyPressed(this, new KeyPressedArgs(key, trap));
+                
+                //Trap current key only if trapping is enabled and the key is in the list of keys to trap
+                bool result = false;
+                bool trapCurrentKey = (Trap && keysToTrap.TryGetValue(key, out result)) ? result : false;   
 
-                if (trap)
+                OnKeyPressed(this, new KeyPressedArgs(key, trapCurrentKey));
+
+                if (trapCurrentKey)
+                {
                     return (System.IntPtr)1;
+                }
             }
 
             return CallNextHookEx(hookID, nCode, wParam, lParam);
@@ -66,6 +76,16 @@ namespace Bukva
         public void Dispose()
         {
             UnhookWindowsHookEx(hookID);
+        }
+
+        public void TrapKey(Key k)
+        {
+            keysToTrap[k] = true;
+        }
+
+        public void UntrapKey(Key k)
+        {
+            keysToTrap[k] = false;
         }
     }
 
