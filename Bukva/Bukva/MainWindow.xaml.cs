@@ -31,5 +31,16 @@ namespace Bukva
         {
             this.Title = "Bukva: Off";
         }
+
+        private void OnButtonClick(object sender, RoutedEventArgs e)
+        {
+            Enable();
+        }
+
+
+        private void OffButtonClick(object sender, RoutedEventArgs e)
+        {
+            Disable();
+        }
     }
 }

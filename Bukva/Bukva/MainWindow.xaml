@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bukva"
         mc:Ignorable="d"
-        Title="Bukva: Off" Height="140.268" Width="259.238" ResizeMode="CanMinimize">
+        Title="Bukva: Off" Height="140.268" Width="259.905" ResizeMode="CanMinimize">
     <Grid>
+        <Button Content="On" HorizontalAlignment="Left" VerticalAlignment="Top" Width="127" Height="111" Click="OnButtonClick"/>
+        <Button Content="Off" HorizontalAlignment="Right" VerticalAlignment="Top" Width="127" Height="111" Click="OffButtonClick"/>
 
     </Grid>
 </Window>

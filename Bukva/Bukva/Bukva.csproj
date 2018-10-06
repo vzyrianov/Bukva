@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LanguageConfigurations\CustomLanguageConfiguration.cs" />
+    <Compile Include="LanguageConfigurations\LanguageConfiguration.cs" />
+    <Compile Include="LanguageConfigurations\RussianLanguageConfiguration.cs" />
+    <Compile Include="KeyboardHook\Win32.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -62,7 +66,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="KeyboardHook.cs" />
+    <Compile Include="KeyboardHook\KeyboardHook.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
