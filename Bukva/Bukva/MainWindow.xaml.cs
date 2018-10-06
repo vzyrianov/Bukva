@@ -24,5 +24,15 @@ namespace Bukva
         {
             InitializeComponent();
         }
+
+        private void Enable()
+        {
+            this.Title = "Bukva: On";
+        }
+
+        private void Disable()
+        {
+            this.Title = "Bukva: Off";
+        }
     }
 }
