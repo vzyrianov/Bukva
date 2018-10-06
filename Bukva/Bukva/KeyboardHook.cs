@@ -8,7 +8,7 @@ namespace Bukva
 {
     class KeyboardHook : IDisposable
     {
-        private Win32.CallBackHandler proc;
+        private Win32.CallBackHandler callBackHandler;
         private IntPtr hookID = IntPtr.Zero;
 
         public event EventHandler<KeyPressedEventArgs> OnKeyPressed;
@@ -19,7 +19,7 @@ namespace Bukva
 
         public KeyboardHook()
         {
-            proc = HookCallback;
+            callBackHandler = HookCallback;
         }
 
         public void HookKeyboard()
@@ -27,7 +27,7 @@ namespace Bukva
             using (Process curProcess = Process.GetCurrentProcess())
             using (ProcessModule curModule = curProcess.MainModule)
             {
-                hookID = Win32.SetWindowsHookEx(Win32.WH_KEYBOARD_LL, proc, Win32.GetModuleHandle(curModule.ModuleName), 0);
+                hookID = Win32.SetWindowsHookEx(Win32.WH_KEYBOARD_LL, callBackHandler, Win32.GetModuleHandle(curModule.ModuleName), 0);
             }
         }
         
