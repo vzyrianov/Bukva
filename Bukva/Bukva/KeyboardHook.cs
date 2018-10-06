@@ -30,9 +30,9 @@ namespace Bukva
         private CallBackHandler proc;
         private IntPtr hookID = IntPtr.Zero;
 
-        public event EventHandler<KeyPressedArgs> OnKeyPressed;
+        public event EventHandler<KeyPressedEventArgs> OnKeyPressed;
 
-        private Dictionary<Key, bool> keysToTrap = new Dictionary<Key, bool>();
+        private HashSet<Key> keysToTrap = new HashSet<Key>();
 
         public bool Trap { get; set; }
 
@@ -49,20 +49,22 @@ namespace Bukva
                 hookID = SetWindowsHookEx(WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
             }
         }
+        
+        public void Dispose()
+        {
+            UnhookWindowsHookEx(hookID);
+        }
 
         private IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
             if (nCode >= 0 && (wParam == (IntPtr)WM_KEYDOWN || wParam == (IntPtr)WM_SYSKEYDOWN))
             {
                 int virtualKeyCode = Marshal.ReadInt32(lParam);
-                Key key = KeyInterop.KeyFromVirtualKey(virtualKeyCode);
+                Key pressedKey = KeyInterop.KeyFromVirtualKey(virtualKeyCode);
 
-                
-                //Trap current key only if trapping is enabled and the key is in the list of keys to trap
-                bool result = false;
-                bool trapCurrentKey = (Trap && keysToTrap.TryGetValue(key, out result)) ? result : false;   
+                bool trapCurrentKey = Trap && keysToTrap.Contains(pressedKey);
 
-                OnKeyPressed(this, new KeyPressedArgs(key, trapCurrentKey));
+                OnKeyPressed(this, new KeyPressedEventArgs(pressedKey, trapCurrentKey));
 
                 if (trapCurrentKey)
                 {
@@ -73,28 +75,23 @@ namespace Bukva
             return CallNextHookEx(hookID, nCode, wParam, lParam);
         }
 
-        public void Dispose()
-        {
-            UnhookWindowsHookEx(hookID);
-        }
-
         public void TrapKey(Key k)
         {
-            keysToTrap[k] = true;
+            keysToTrap.Add(k);
         }
 
         public void UntrapKey(Key k)
         {
-            keysToTrap[k] = false;
+            keysToTrap.Remove(k);
         }
     }
 
-    public class KeyPressedArgs : EventArgs
+    public class KeyPressedEventArgs : EventArgs
     {
         public Key KeyPressed { get; private set; }
         public bool Trapped { get; private set; }
 
-        public KeyPressedArgs(Key key, bool trapped)
+        public KeyPressedEventArgs(Key key, bool trapped)
         {
             KeyPressed = key;
             Trapped = trapped;
