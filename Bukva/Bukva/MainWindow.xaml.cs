@@ -20,8 +20,6 @@ namespace Bukva
 {
     public partial class MainWindow : Window
     {
-        Configuration currentConfig;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -30,7 +28,6 @@ namespace Bukva
             string json = streamReader.ReadToEnd();
 
             Configuration config = JsonConvert.DeserializeObject<Configuration>(json);
-            int i = 12;
         }
 
         private void Enable()
