@@ -10,7 +10,12 @@ namespace Bukva
     {
         public CustomLanguageConfiguration()
         {
-            translationTable = new Dictionary<string, string>();
+            translationTable = new Dictionary<KeyPressChord, string>();
+        }
+
+        void LoadConfiguration(List<KeyTranslation> keyTranslations)
+        {
+
         }
     }
 }

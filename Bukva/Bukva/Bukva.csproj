@@ -57,13 +57,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Configuration.cs" />
     <Compile Include="KeyPressChord.cs" />
     <Compile Include="LanguageConfigurations\CustomLanguageConfiguration.cs" />
     <Compile Include="LanguageConfigurations\LanguageConfiguration.cs" />
     <Compile Include="LanguageConfigurations\RussianLanguageConfiguration.cs" />
     <Compile Include="KeyboardHook\Win32.cs" />
-    <Compile Include="Utility.cs" />
+    <Compile Include="JsonUtilityObjects.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

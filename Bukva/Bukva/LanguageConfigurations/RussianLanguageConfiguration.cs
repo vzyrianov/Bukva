@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Bukva
-{
+{/*
     class RussianLanguageConfiguration : LanguageConfiguration
     {
         public RussianLanguageConfiguration()
@@ -97,5 +97,5 @@ namespace Bukva
             translationTable.Add("NOOEMPERIOD", "№");
             translationTable.Add("D3", "ъ");
         }
-    }
+    }*/
 }

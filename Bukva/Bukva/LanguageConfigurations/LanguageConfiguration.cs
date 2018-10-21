@@ -8,11 +8,11 @@ namespace Bukva
 {
     class LanguageConfiguration
     {
-        protected Dictionary<string, string> translationTable;
+        protected Dictionary<KeyPressChord, string> translationTable;
 
         public LanguageConfiguration()
         {
-            translationTable = new Dictionary<string, string>();
+            translationTable = new Dictionary<KeyPressChord, string>();
         }
 
 
