@@ -20,24 +20,35 @@ namespace Bukva
 {
     public partial class MainWindow : Window
     {
+        KeyTranslator keyTranslator;
+        CustomLanguageConfiguration languageConfiguration;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            StreamReader streamReader = new StreamReader(@"config.xml");
+            string filePath = System.IO.Path.GetFullPath("config.json");
+            StreamReader streamReader = new StreamReader(filePath);
             string json = streamReader.ReadToEnd();
 
             Configuration config = JsonConvert.DeserializeObject<Configuration>(json);
+            
+            languageConfiguration = new CustomLanguageConfiguration();
+            languageConfiguration.LoadConfiguration(config.keyTranslations);
+
+            keyTranslator = new KeyTranslator(languageConfiguration);
         }
 
         private void Enable()
         {
             this.Title = "Bukva: On";
+            keyTranslator.Enabled = true;
         }
 
         private void Disable()
         {
             this.Title = "Bukva: Off";
+            keyTranslator.Enabled = false;
         }
 
         private void OnButtonClick(object sender, RoutedEventArgs e)

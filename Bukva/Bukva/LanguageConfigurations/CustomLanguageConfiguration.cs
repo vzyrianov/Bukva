@@ -10,12 +10,24 @@ namespace Bukva
     {
         public CustomLanguageConfiguration()
         {
-            translationTable = new Dictionary<KeyPressChord, string>();
+            translationTable = new Dictionary<string, string>();
         }
 
-        void LoadConfiguration(List<KeyTranslation> keyTranslations)
+        public void LoadConfiguration(List<KeyTranslation> keyTranslations)
         {
+            foreach(KeyTranslation keyTranslation in keyTranslations) {
+                string keyPressChord = "";
 
+                foreach(KeyPress keyPress in keyTranslation.input)
+                {
+                    if (keyPress.isShiftDown)
+                        keyPressChord += keyPress.key.ToUpper();
+                    else
+                        keyPressChord += keyPress.key.ToLower();
+                }
+
+                translationTable.Add(keyPressChord, keyTranslation.output);
+            }
         }
     }
 }

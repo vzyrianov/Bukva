@@ -6,6 +6,8 @@ namespace Bukva
     public class Win32
     {
         public const int WH_KEYBOARD_LL = 13;
+        public const int WH_CALLWNDPROCRET = 12;
+        public const int WH_KEYBOARD = 2;
         public const int WM_KEYDOWN = 0x0100;
         public const int WM_SYSKEYDOWN = 0x0104;
 

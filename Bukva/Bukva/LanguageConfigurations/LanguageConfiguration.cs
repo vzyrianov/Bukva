@@ -8,13 +8,21 @@ namespace Bukva
 {
     class LanguageConfiguration
     {
-        protected Dictionary<KeyPressChord, string> translationTable;
+        protected Dictionary<string, string> translationTable;
 
         public LanguageConfiguration()
         {
-            translationTable = new Dictionary<KeyPressChord, string>();
+            translationTable = new Dictionary<string, string>();
         }
 
+        public bool ContainsKeyFromChord(KeyPressChord history)
+        {
+            return translationTable.ContainsKey(history.ToString());
+        }
 
+        public string GetKeyFromChord(KeyPressChord history)
+        {
+            return translationTable[history.ToString()];
+        }
     }
 }
