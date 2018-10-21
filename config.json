@@ -1,0 +1,977 @@
+﻿{
+  "keyTranslations": [
+    {
+      "output": "а",
+      "input": [
+        {
+          "key": "a",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "б",
+      "input": [
+        {
+          "key": "b",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "ц",
+      "input": [
+        {
+          "key": "c",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "д",
+      "input": [
+        {
+          "key": "d",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "е",
+      "input": [
+        {
+          "key": "e",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "ф",
+      "input": [
+        {
+          "key": "f",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "г",
+      "input": [
+        {
+          "key": "g",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "х",
+      "input": [
+        {
+          "key": "h",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "и",
+      "input": [
+        {
+          "key": "i",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "й",
+      "input": [
+        {
+          "key": "j",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "к",
+      "input": [
+        {
+          "key": "k",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "л",
+      "input": [
+        {
+          "key": "l",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "м",
+      "input": [
+        {
+          "key": "m",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "н",
+      "input": [
+        {
+          "key": "n",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "о",
+      "input": [
+        {
+          "key": "o",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "п",
+      "input": [
+        {
+          "key": "p",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "я",
+      "input": [
+        {
+          "key": "q",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "р",
+      "input": [
+        {
+          "key": "r",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "с",
+      "input": [
+        {
+          "key": "s",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "т",
+      "input": [
+        {
+          "key": "t",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "у",
+      "input": [
+        {
+          "key": "u",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "в",
+      "input": [
+        {
+          "key": "v",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "щ",
+      "input": [
+        {
+          "key": "w",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "х",
+      "input": [
+        {
+          "key": "x",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "ы",
+      "input": [
+        {
+          "key": "y",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "з",
+      "input": [
+        {
+          "key": "z",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "ь",
+      "input": [
+        {
+          "key": "oemquotes",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "я",
+      "input": [
+        {
+          "key": "j",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "a",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "я",
+      "input": [
+        {
+          "key": "y",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "a",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "э",
+      "input": [
+        {
+          "key": "j",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "e",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "щ",
+      "input": [
+        {
+          "key": "s",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "h",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "h",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "щ",
+      "input": [
+        {
+          "key": "s",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "c",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "h",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "ё",
+      "input": [
+        {
+          "key": "j",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "o",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "ё",
+      "input": [
+        {
+          "key": "y",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "o",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "ж",
+      "input": [
+        {
+          "key": "z",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "h",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "ч",
+      "input": [
+        {
+          "key": "c",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "h",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "ш",
+      "input": [
+        {
+          "key": "s",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "h",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "ю",
+      "input": [
+        {
+          "key": "y",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "u",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "ю",
+      "input": [
+        {
+          "key": "j",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "u",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "э",
+      "input": [
+        {
+          "key": "y",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        },
+        {
+          "key": "e",
+          "isShiftDown": false,
+          "isCtrlDown": false
+        }
+      ]
+    },
+
+    /*Capitals*/
+
+    {
+      "output": "А",
+      "input": [
+        {
+          "key": "a",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Б",
+      "input": [
+        {
+          "key": "b",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Ц",
+      "input": [
+        {
+          "key": "c",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Д",
+      "input": [
+        {
+          "key": "d",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Е",
+      "input": [
+        {
+          "key": "e",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Ф",
+      "input": [
+        {
+          "key": "f",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Г",
+      "input": [
+        {
+          "key": "g",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Х",
+      "input": [
+        {
+          "key": "h",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "И",
+      "input": [
+        {
+          "key": "i",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Й",
+      "input": [
+        {
+          "key": "j",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "К",
+      "input": [
+        {
+          "key": "k",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Л",
+      "input": [
+        {
+          "key": "l",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "М",
+      "input": [
+        {
+          "key": "m",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Н",
+      "input": [
+        {
+          "key": "n",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "О",
+      "input": [
+        {
+          "key": "o",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "П",
+      "input": [
+        {
+          "key": "p",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Я",
+      "input": [
+        {
+          "key": "q",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Р",
+      "input": [
+        {
+          "key": "r",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "С",
+      "input": [
+        {
+          "key": "s",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Т",
+      "input": [
+        {
+          "key": "t",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "У",
+      "input": [
+        {
+          "key": "u",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "В",
+      "input": [
+        {
+          "key": "v",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Щ",
+      "input": [
+        {
+          "key": "w",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Х",
+      "input": [
+        {
+          "key": "x",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Ы",
+      "input": [
+        {
+          "key": "y",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "З",
+      "input": [
+        {
+          "key": "z",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "ь",
+      "input": [
+        {
+          "key": "oemquotes",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Я",
+      "input": [
+        {
+          "key": "j",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "a",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Я",
+      "input": [
+        {
+          "key": "y",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "a",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Э",
+      "input": [
+        {
+          "key": "j",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "e",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Щ",
+      "input": [
+        {
+          "key": "s",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "h",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "h",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Щ",
+      "input": [
+        {
+          "key": "s",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "c",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "h",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Ё",
+      "input": [
+        {
+          "key": "j",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "o",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Ё",
+      "input": [
+        {
+          "key": "y",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "o",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Ж",
+      "input": [
+        {
+          "key": "z",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "h",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Ч",
+      "input": [
+        {
+          "key": "c",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "h",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Ш",
+      "input": [
+        {
+          "key": "s",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "h",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Ю",
+      "input": [
+        {
+          "key": "y",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "u",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Ю",
+      "input": [
+        {
+          "key": "j",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "u",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    },
+    {
+      "output": "Э",
+      "input": [
+        {
+          "key": "y",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        },
+        {
+          "key": "e",
+          "isShiftDown": true,
+          "isCtrlDown": false
+        }
+      ]
+    }
+  ],
+
+  "shortcuts": [
+    {
+      "commandName": "startBukva",
+      "bind": {
+        "key": "[",
+        "isShiftDown": true,
+        "isCtrlDown": true
+      }
+    },
+
+    {
+      "commandName": "stopBukva",
+      "bind": {
+        "key": "]",
+        "isShiftDown": true,
+        "isCtrlDown": true
+      }
+    }
+  ]
+}
