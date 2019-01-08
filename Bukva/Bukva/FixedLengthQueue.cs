@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bukva
+﻿namespace Bukva
 {
     class FixedLengthQueue
     {
@@ -33,6 +27,14 @@ namespace Bukva
             if(position >= length)
             {
                 position = 0;
+            }
+        }
+
+        public void Clear()
+        {
+            for(int i = 0; i < length; ++i)
+            {
+                buffer[i] = "";
             }
         }
     }
