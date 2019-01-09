@@ -22,7 +22,7 @@ namespace Bukva
         public KeyTranslator()
         {
             buffer = new FixedLengthQueue<string>(3);
-            buffer.Clear();
+            buffer.Clear("");
             letterTable = new Dictionary<string, string>();
 
             letterTable.Add("a", "а");

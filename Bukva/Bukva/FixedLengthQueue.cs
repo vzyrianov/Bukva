@@ -35,5 +35,15 @@
             buffer = new Type[length];
             position = 0;
         }
+        
+        public void Clear(Type clearVar)
+        {
+            position = 0;
+
+            for(int i = 0; i < length; ++i)
+            {
+                buffer[i] = clearVar;
+            }
+        }
     }
 }
