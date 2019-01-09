@@ -17,7 +17,7 @@ namespace Bukva
         [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(int vKey);
 
-        FixedLengthQueue buffer;
+        FixedLengthQueue<string> buffer;
         Dictionary<string, string> letterTable;
 
         Thread keyUpdateThread;
@@ -27,7 +27,7 @@ namespace Bukva
         public MainWindow()
         {
             InitializeComponent();
-            buffer = new FixedLengthQueue(3);
+            buffer = new FixedLengthQueue<string>(3);
             buffer.Clear();
             letterTable = new Dictionary<string, string>();
 

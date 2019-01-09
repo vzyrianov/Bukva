@@ -1,25 +1,25 @@
 ﻿namespace Bukva
 {
-    class FixedLengthQueue
+    class FixedLengthQueue<Type>
     {
         private readonly int length;
         private int position;
 
-        string[] buffer;
+        Type[] buffer;
 
         public FixedLengthQueue(int length)
         {
             this.length = length;
-            buffer = new string[length];
+            buffer = new Type[length];
             position = 0;
         }
 
-        public string At(int index)
+        public Type At(int index)
         {
             return buffer[(index + position) % length];
         }
 
-        public void Insert(string s)
+        public void Insert(Type s)
         {
             buffer[position] = s;
             position += 1;
@@ -32,10 +32,8 @@
 
         public void Clear()
         {
-            for(int i = 0; i < length; ++i)
-            {
-                buffer[i] = "";
-            }
+            buffer = new Type[length];
+            position = 0;
         }
     }
 }
