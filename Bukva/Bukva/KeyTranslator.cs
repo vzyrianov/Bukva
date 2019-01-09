@@ -133,14 +133,14 @@ namespace Bukva
 
         private void ProcessPresses()
         {
-            foreach (System.Int32 i in Enum.GetValues(typeof(Keys)))
+            foreach (int i in Enum.GetValues(typeof(Keys)))
             {
                 if (GetAsyncKeyState(i) == -32767)
                 {
-                    if (!System.Windows.Forms.Control.ModifierKeys.HasFlag(Keys.Control))
+                    if (!Control.ModifierKeys.HasFlag(Keys.Control))
                     {
                         string txt;
-                        if (System.Windows.Forms.Control.ModifierKeys.HasFlag(Keys.Shift))
+                        if (Control.ModifierKeys.HasFlag(Keys.Shift))
                             txt = Enum.GetName(typeof(Keys), i).ToUpper();
                         else
                             txt = Enum.GetName(typeof(Keys), i).ToLower();
