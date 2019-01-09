@@ -14,7 +14,6 @@ namespace Bukva
     /// </summary>
     public partial class MainWindow : Window
     {
-        
         [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(int vKey);
 
@@ -29,7 +28,7 @@ namespace Bukva
         {
             InitializeComponent();
             buffer = new FixedLengthQueue(3);
-            clearBuffer();
+            buffer.Clear();
             letterTable = new Dictionary<string, string>();
 
             letterTable.Add("a", "а");
@@ -167,7 +166,6 @@ namespace Bukva
 
         void ProcessPresses()
         {
-
             foreach (System.Int32 i in Enum.GetValues(typeof(Keys)))
             {
                 if (GetAsyncKeyState(i) == -32767)
@@ -217,20 +215,10 @@ namespace Bukva
                             SendKeys.SendWait("{BACKSPACE}");
                             SendKeys.SendWait(letterTable[txt]);
                         }
-                        pushShift(txt);
+                        buffer.Insert(txt);
                     }
                 }
             }
-        }
-
-        private void pushShift(string str)
-        {
-            buffer.Insert(str);
-        }
-
-        private void clearBuffer()
-        {
-            buffer.Clear();
         }
     }
 }
