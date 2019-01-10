@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows;
 using System.Windows.Forms;
 
 namespace Bukva
@@ -15,9 +13,7 @@ namespace Bukva
         FixedLengthQueue<string> buffer;
         Dictionary<string, string> letterTable;
 
-        Thread keyUpdateThread;
-        
-        public bool Translate { get; set; }
+        KeyPressListener keyPressListener;
 
         public KeyTranslator()
         {
@@ -110,83 +106,67 @@ namespace Bukva
             letterTable.Add("NOOEMPERIOD", "№");
             letterTable.Add("D3", "ъ");
 
-            keyUpdateThread = new Thread(new ThreadStart(KeyUpdate));
-            keyUpdateThread.IsBackground = true;
-            keyUpdateThread.Start();
+            keyPressListener = new KeyPressListener();
+            keyPressListener.Listen = true;
+            keyPressListener.OnKeyPressed += OnKeyPressed;
         }
 
-        private void KeyUpdate()
+        public void Start()
         {
-            while (true)
-            {
-                if (Translate)
-                {
-                    ProcessPresses();
-                    Thread.Sleep(10);
-                }
-                else
-                {
-                    Thread.Sleep(200);
-                }
-            }
+            keyPressListener.Listen = true;
         }
 
-        private void ProcessPresses()
+        public void Stop()
         {
-            foreach (int i in Enum.GetValues(typeof(Keys)))
+            keyPressListener.Listen = false;
+            buffer.Clear(""); //What if OnKeyPressed is being executed at this time?
+        }
+
+        private void OnKeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            string txt = e.KeyPressed;
+
+            if (Control.ModifierKeys.HasFlag(Keys.Control))
+                return;
+            if (txt == "back")
             {
-                if (GetAsyncKeyState(i) == -32767)
+                if (letterTable.ContainsKey(buffer.At(0)) && (letterTable.ContainsKey(buffer.At(1))) && (letterTable.ContainsKey(buffer.At(2))) && (buffer.At(2).Contains(buffer.At(1) + buffer.At(1))))
                 {
-                    if (!Control.ModifierKeys.HasFlag(Keys.Control))
+                    if (letterTable.ContainsKey(buffer.At(0) + buffer.At(1)))
+                        SendKeys.SendWait(letterTable[buffer.At(0) + buffer.At(1)]);
+                    else
                     {
-                        string txt;
-                        if (Control.ModifierKeys.HasFlag(Keys.Shift))
-                            txt = Enum.GetName(typeof(Keys), i).ToUpper();
-                        else
-                            txt = Enum.GetName(typeof(Keys), i).ToLower();
-                        if (txt == "back")
-                        {
-                            if (letterTable.ContainsKey(buffer.At(0)) && (letterTable.ContainsKey(buffer.At(1))) && (letterTable.ContainsKey(buffer.At(2))) && (buffer.At(2).Contains(buffer.At(1) + buffer.At(1))))
-                            {
-                                if (letterTable.ContainsKey(buffer.At(0) + buffer.At(1)))
-                                    SendKeys.SendWait(letterTable[buffer.At(0) + buffer.At(1)]);
-                                else
-                                {
-                                    SendKeys.SendWait(letterTable[buffer.At(0)]);
-                                    SendKeys.SendWait(letterTable[buffer.At(2)]);
-                                }
-                                SendKeys.SendWait(letterTable[((buffer.At(2))[2]).ToString()]);
-                            }
-                            else if ((letterTable.ContainsKey(buffer.At(1))) && (letterTable.ContainsKey(buffer.At(2))) && (buffer.At(2).Contains(buffer.At(1))) && (buffer.At(1) != buffer.At(2)))
-                            {
-                                SendKeys.SendWait(letterTable[buffer.At(1)]);
-                                SendKeys.SendWait(letterTable[((buffer.At(2))[1]).ToString()]);
-                            }
-                        }
-
-                        if (letterTable.ContainsKey(buffer.At(1) + buffer.At(2) + txt))
-                        {
-                            if (!letterTable.ContainsKey(buffer.At(1) + buffer.At(2)))
-                                SendKeys.SendWait("{BACKSPACE}");
-                            SendKeys.SendWait("{BACKSPACE}");
-                            txt = buffer.At(1) + buffer.At(2) + txt;
-                        }
-                        else if (letterTable.ContainsKey(buffer.At(2) + txt))
-                        {
-                            SendKeys.SendWait("{BACKSPACE}");
-                            txt = buffer.At(2) + txt;
-                        }
-
-                        if (letterTable.ContainsKey(txt))
-                        {
-                            SendKeys.SendWait("{BACKSPACE}");
-                            SendKeys.SendWait(letterTable[txt]);
-                        }
-                        buffer.Insert(txt);
+                        SendKeys.SendWait(letterTable[buffer.At(0)]);
+                        SendKeys.SendWait(letterTable[buffer.At(2)]);
                     }
+                    SendKeys.SendWait(letterTable[((buffer.At(2))[2]).ToString()]);
+                }
+                else if ((letterTable.ContainsKey(buffer.At(1))) && (letterTable.ContainsKey(buffer.At(2))) && (buffer.At(2).Contains(buffer.At(1))) && (buffer.At(1) != buffer.At(2)))
+                {
+                    SendKeys.SendWait(letterTable[buffer.At(1)]);
+                    SendKeys.SendWait(letterTable[((buffer.At(2))[1]).ToString()]);
                 }
             }
-        }
 
+            if (letterTable.ContainsKey(buffer.At(1) + buffer.At(2) + txt))
+            {
+                if (!letterTable.ContainsKey(buffer.At(1) + buffer.At(2)))
+                    SendKeys.SendWait("{BACKSPACE}");
+                SendKeys.SendWait("{BACKSPACE}");
+                txt = buffer.At(1) + buffer.At(2) + txt;
+            }
+            else if (letterTable.ContainsKey(buffer.At(2) + txt))
+            {
+                SendKeys.SendWait("{BACKSPACE}");
+                txt = buffer.At(2) + txt;
+            }
+
+            if (letterTable.ContainsKey(txt))
+            {
+                SendKeys.SendWait("{BACKSPACE}");
+                SendKeys.SendWait(letterTable[txt]);
+            }
+            buffer.Insert(txt);
+        }
     }
 }

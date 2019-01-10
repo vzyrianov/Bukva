@@ -30,7 +30,7 @@ namespace Bukva
             button1.Font = new Font(button1.Font, FontStyle.Bold);
             button1.ForeColor = Color.FromKnownColor(KnownColor.ControlText);
             */
-            keyTranslator.Translate = true;
+            keyTranslator.Start();
             //this.Text = "Bukva: ON";
         }
 
@@ -43,7 +43,7 @@ namespace Bukva
             button2.BackColor = Color.SteelBlue;
             button2.Font = new Font(button2.Font, FontStyle.Bold);
             button2.ForeColor = Color.FromKnownColor(KnownColor.ControlText);*/
-            keyTranslator.Translate = false;
+            keyTranslator.Stop();
             //this.Text = "Bukva: OFF";
         }
     }
