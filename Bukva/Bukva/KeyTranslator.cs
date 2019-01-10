@@ -130,7 +130,18 @@ namespace Bukva
                 return;
             if (txt == "back")
             {
-                if ((letterTable.ContainsKey(buffer.At(1))) && (letterTable.ContainsKey(buffer.At(2))) && (buffer.At(2).Contains(buffer.At(1))) && (buffer.At(1) != buffer.At(2)))
+                if (letterTable.ContainsKey(buffer.At(0)) && (letterTable.ContainsKey(buffer.At(1))) && (letterTable.ContainsKey(buffer.At(2))) && (buffer.At(2).Contains(buffer.At(1) + buffer.At(1))))
+                {
+                    if (letterTable.ContainsKey(buffer.At(0) + buffer.At(1)))
+                        SendKeys.SendWait(letterTable[buffer.At(0) + buffer.At(1)]);
+                    else
+                    {
+                        SendKeys.SendWait(letterTable[buffer.At(0)]);
+                        SendKeys.SendWait(letterTable[buffer.At(2)]);
+                    }
+                    SendKeys.SendWait(letterTable[((buffer.At(2))[2]).ToString()]);
+                }
+                else if ((letterTable.ContainsKey(buffer.At(1))) && (letterTable.ContainsKey(buffer.At(2))) && (buffer.At(2).Contains(buffer.At(1))) && (buffer.At(1) != buffer.At(2)))
                 {
                     SendKeys.SendWait(letterTable[buffer.At(1)]);
                     SendKeys.SendWait(letterTable[((buffer.At(2))[1]).ToString()]);
@@ -139,6 +150,8 @@ namespace Bukva
 
             if (letterTable.ContainsKey(buffer.At(1) + buffer.At(2) + txt))
             {
+                if (!letterTable.ContainsKey(buffer.At(1) + buffer.At(2)))
+                    SendKeys.SendWait("{BACKSPACE}");
                 SendKeys.SendWait("{BACKSPACE}");
                 txt = buffer.At(1) + buffer.At(2) + txt;
             }
