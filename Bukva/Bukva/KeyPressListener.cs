@@ -54,9 +54,24 @@ namespace Bukva
                         key = Enum.GetName(typeof(Keys), i).ToLower();
                     }
 
+                    if (key.ToUpper() == "OEMPERIOD")
+                    {
+                        key = ".";
+                    }
+
                     OnKeyPressed(this, new KeyPressedEventArgs(key));
                 }
             }
+        }
+
+        public void DeleteLastKeyPressed()
+        {
+            SendKeys.SendWait("{BACKSPACE}");
+        }
+
+        public void EmitBackspace()
+        {
+            SendKeys.SendWait("{BACKSPACE}");
         }
     }
 

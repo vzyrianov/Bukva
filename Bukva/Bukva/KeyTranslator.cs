@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Bukva
@@ -61,7 +60,7 @@ namespace Bukva
             letterTable.Add("yu", "ю");
             letterTable.Add("ju", "ю");
             letterTable.Add("ye", "э");
-            letterTable.Add("nooemperiod", "№");
+            letterTable.Add("no.", "№");
 
             letterTable.Add("A", "А");
             letterTable.Add("B", "Б");
@@ -103,7 +102,7 @@ namespace Bukva
             letterTable.Add("YU", "Ю");
             letterTable.Add("JU", "Ю");
             letterTable.Add("YE", "Э");
-            letterTable.Add("NOOEMPERIOD", "№");
+            letterTable.Add("NO.", "№");
             letterTable.Add("D3", "ъ");
 
             keyPressListener = new KeyPressListener();
@@ -124,49 +123,86 @@ namespace Bukva
 
         private void OnKeyPressed(object sender, KeyPressedEventArgs e)
         {
-            string txt = e.KeyPressed;
+            string key = e.KeyPressed;
 
             if (Control.ModifierKeys.HasFlag(Keys.Control))
                 return;
-            if (txt == "back")
+            if (key == "back")
             {
-                if (letterTable.ContainsKey(buffer.At(0)) && (letterTable.ContainsKey(buffer.At(1))) && (letterTable.ContainsKey(buffer.At(2))) && (buffer.At(2).Contains(buffer.At(1) + buffer.At(1))))
+                if (letterTable.ContainsKey(buffer.At(0) + buffer.At(1) + buffer.At(2)))
                 {
                     if (letterTable.ContainsKey(buffer.At(0) + buffer.At(1)))
+                    {
                         SendKeys.SendWait(letterTable[buffer.At(0) + buffer.At(1)]);
+
+                        if (letterTable.ContainsKey(buffer.At(2)))
+                            SendKeys.SendWait(letterTable[buffer.At(2)]);
+                        else
+                            SendKeys.SendWait(buffer.At(2));
+                    }
                     else
                     {
-                        SendKeys.SendWait(letterTable[buffer.At(0)]);
-                        SendKeys.SendWait(letterTable[buffer.At(2)]);
+                        if (letterTable.ContainsKey(buffer.At(0)))
+                            SendKeys.SendWait(letterTable[buffer.At(0)]);
+                        else
+                            SendKeys.SendWait(buffer.At(0));
+
+
+                        if (letterTable.ContainsKey(buffer.At(1)))
+                            SendKeys.SendWait(letterTable[buffer.At(1)]);
+                        else
+                            SendKeys.SendWait(buffer.At(1));
+
+
+                        if (letterTable.ContainsKey(buffer.At(2)))
+                            SendKeys.SendWait(letterTable[buffer.At(2)]);
+                        else
+                            SendKeys.SendWait(buffer.At(2));
                     }
-                    SendKeys.SendWait(letterTable[((buffer.At(2))[2]).ToString()]);
                 }
-                else if ((letterTable.ContainsKey(buffer.At(1))) && (letterTable.ContainsKey(buffer.At(2))) && (buffer.At(2).Contains(buffer.At(1))) && (buffer.At(1) != buffer.At(2)))
+                else if (letterTable.ContainsKey(buffer.At(1) + buffer.At(2)))
                 {
                     SendKeys.SendWait(letterTable[buffer.At(1)]);
-                    SendKeys.SendWait(letterTable[((buffer.At(2))[1]).ToString()]);
+                    SendKeys.SendWait(letterTable[buffer.At(2)]);
+                    //With a low level keyboard hook backspace would delete this translation
+                    //needs a workaround
+                }
+            }
+            else
+            {
+                if (letterTable.ContainsKey(buffer.At(1) + buffer.At(2) + key))
+                {
+                    if (letterTable.ContainsKey(buffer.At(2)) || letterTable.ContainsKey(buffer.At(1) + buffer.At(2)))
+                    {
+                        keyPressListener.EmitBackspace();  //Replace previous translation with new one, if it existed
+                    }
+
+                    if (!letterTable.ContainsKey(buffer.At(1) + buffer.At(2)))
+                        keyPressListener.EmitBackspace();
+
+                    keyPressListener.DeleteLastKeyPressed();
+
+                    SendKeys.SendWait(letterTable[buffer.At(1) + buffer.At(2) + key]);
+                }
+                else if (letterTable.ContainsKey(buffer.At(2) + key))
+                {
+                    keyPressListener.DeleteLastKeyPressed();
+
+                    if (letterTable.ContainsKey(buffer.At(2)))
+                        keyPressListener.EmitBackspace();  //Replace previous translation with new one, if it existed
+
+
+                    SendKeys.SendWait(letterTable[buffer.At(2) + key]);
+                }
+                else if (letterTable.ContainsKey(key))
+                {
+                    keyPressListener.DeleteLastKeyPressed();
+
+                    SendKeys.SendWait(letterTable[key]);
                 }
             }
 
-            if (letterTable.ContainsKey(buffer.At(1) + buffer.At(2) + txt))
-            {
-                if (!letterTable.ContainsKey(buffer.At(1) + buffer.At(2)))
-                    SendKeys.SendWait("{BACKSPACE}");
-                SendKeys.SendWait("{BACKSPACE}");
-                txt = buffer.At(1) + buffer.At(2) + txt;
-            }
-            else if (letterTable.ContainsKey(buffer.At(2) + txt))
-            {
-                SendKeys.SendWait("{BACKSPACE}");
-                txt = buffer.At(2) + txt;
-            }
-
-            if (letterTable.ContainsKey(txt))
-            {
-                SendKeys.SendWait("{BACKSPACE}");
-                SendKeys.SendWait(letterTable[txt]);
-            }
-            buffer.Insert(txt);
+            buffer.Insert(key);
         }
     }
 }
