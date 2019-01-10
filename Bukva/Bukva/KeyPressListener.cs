@@ -24,7 +24,7 @@ namespace Bukva
                     if(Listen)
                     {
                         ReadKeyPresses();
-                        Thread.Sleep(20);
+                        Thread.Sleep(10);
                     }
                     else
                     {
