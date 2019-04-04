@@ -67,6 +67,7 @@
     <Compile Include="FixedLengthQueue.cs" />
     <Compile Include="KeyPressListener.cs" />
     <Compile Include="KeyTranslator.cs" />
+    <Compile Include="LetterTable.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
