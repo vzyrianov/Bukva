@@ -13,12 +13,14 @@ namespace Bukva
     public partial class MainWindow : Window
     {
         KeyTranslator keyTranslator;
+        LetterTable letterTable;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            keyTranslator = new KeyTranslator();
+            letterTable = new LetterTable();
+            keyTranslator = new KeyTranslator(letterTable);
         }
 
         private void OnButtonClick(object sender, RoutedEventArgs e)

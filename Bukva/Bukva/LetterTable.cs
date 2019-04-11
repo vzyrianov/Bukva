@@ -7,14 +7,15 @@ namespace Bukva
     {
         public LetterTable() : base()
         {
-
+            List<string> list = GetCandidateFiles();
+            ReadInFromFile(list[0]);
         }
 
-        public void ReadInFromFile()
+        public void ReadInFromFile(string filename)
         {
             string line;
 
-            using (StreamReader streamReader = new StreamReader("lang.buk"))
+            using (StreamReader streamReader = new StreamReader(filename))
             {
                 while (!streamReader.EndOfStream)
                 {
@@ -29,7 +30,7 @@ namespace Bukva
             }
         }
 
-        public List<string> GetCandidateFiles()
+        List<string> GetCandidateFiles()
         {
             List<string> languageFiles = new List<string>();
             string[] files = Directory.GetFiles(".");
