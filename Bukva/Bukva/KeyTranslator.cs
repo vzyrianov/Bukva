@@ -21,7 +21,7 @@ namespace Bukva
             this.letterTable = letterTable;
             
             keyPressListener = new KeyPressListener();
-            keyPressListener.Listen = true;
+            keyPressListener.Listen = false;
             keyPressListener.OnKeyPressed += OnKeyPressed;
         }
 
