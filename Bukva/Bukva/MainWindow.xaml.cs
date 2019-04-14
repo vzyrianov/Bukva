@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Forms;
 
 namespace Bukva
@@ -14,26 +15,36 @@ namespace Bukva
     {
         KeyTranslator keyTranslator;
         LetterTable letterTable;
+        bool Enabled;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            Enabled = false;
+
             letterTable = new LetterTable();
             keyTranslator = new KeyTranslator(letterTable);
+            StatusLabel.Content = "Language: \n" + letterTable.Filename;
+            
         }
 
-        private void OnButtonClick(object sender, RoutedEventArgs e)
-        {/*
-            button2.BackColor = Color.DeepSkyBlue;
-            button2.Font = new Font(button2.Font, FontStyle.Regular);
-            button2.ForeColor = Color.FromKnownColor(KnownColor.ControlDarkDark);
-            button1.BackColor = Color.SteelBlue;
-            button1.Font = new Font(button1.Font, FontStyle.Bold);
-            button1.ForeColor = Color.FromKnownColor(KnownColor.ControlText);
-            */
-            keyTranslator.Start();
-            //this.Text = "Bukva: ON";
+        private void ToggleButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!Enabled)
+            {
+                keyTranslator.Start();
+                ToggleButton.Background = Brushes.DeepSkyBlue;
+                ToggleButton.Content = "On";
+                Enabled = true;
+            }
+            else
+            {
+                keyTranslator.Stop();
+                ToggleButton.Background = Brushes.SteelBlue;
+                ToggleButton.Content = "Off";
+                Enabled = false;
+            }
         }
 
         private void OffButtonClick(object sender, RoutedEventArgs e)
