@@ -13,3 +13,6 @@ To get Bukva on your machine just download and extract the zip, then drag a lang
 
 # .buk Format
 Languages are stored in a .buk format. buk is a CSV format. The first column contains the keyboard character sequence that translates phonetically to the character in the second column.
+
+# Contributing
+Language file contributions would be immensely appreciated. 
