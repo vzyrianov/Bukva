@@ -6,16 +6,45 @@ using System.Windows.Forms;
 
 namespace Bukva
 {
-    class KeyPressListener
-    {
-
-    }
-
-    class KeyStateListener : KeyPressListener
+    abstract class KeyPressListener
     {
         public bool Listen { get; set; }
         public event EventHandler<KeyPressedEventArgs> OnKeyPressed;
 
+        protected void RaiseKeyPressedEvent(string keyPressed)
+        {
+            OnKeyPressed(this, new KeyPressedEventArgs(keyPressed));
+        }
+
+        public abstract void DeleteLastKeyPressed();
+        public abstract void EmitBackspace();
+    }
+
+
+    class LowLevelKeyboardHook : KeyPressListener
+    {
+        [DllImport("User32.dll")]
+        private static extern short GetAsyncKeyState(int vKey);
+        private Thread keyPressListenerThread;
+
+        public LowLevelKeyboardHook()
+        {
+
+        }
+
+        public override void DeleteLastKeyPressed()
+        {
+            SendKeys.SendWait("{BACKSPACE}");
+        }
+
+        public override void EmitBackspace()
+        {
+            SendKeys.SendWait("{BACKSPACE}");
+        }
+    }
+
+    class KeyStateListener : KeyPressListener
+    {
         [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(int vKey);
         private Thread keyPressListenerThread;
@@ -64,17 +93,17 @@ namespace Bukva
                         key = ".";
                     }
 
-                    OnKeyPressed(this, new KeyPressedEventArgs(key));
+                    RaiseKeyPressedEvent(key);
                 }
             }
         }
 
-        public void DeleteLastKeyPressed()
+        public override void DeleteLastKeyPressed()
         {
             SendKeys.SendWait("{BACKSPACE}");
         }
 
-        public void EmitBackspace()
+        public override void EmitBackspace()
         {
             SendKeys.SendWait("{BACKSPACE}");
         }
