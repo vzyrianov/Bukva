@@ -8,6 +8,11 @@ namespace Bukva
 {
     class KeyPressListener
     {
+
+    }
+
+    class KeyStateListener : KeyPressListener
+    {
         public bool Listen { get; set; }
         public event EventHandler<KeyPressedEventArgs> OnKeyPressed;
 
@@ -15,7 +20,7 @@ namespace Bukva
         private static extern short GetAsyncKeyState(int vKey);
         private Thread keyPressListenerThread;
 
-        public KeyPressListener()
+        public KeyStateListener()
         {
             keyPressListenerThread = new Thread(new ThreadStart(() =>
             {

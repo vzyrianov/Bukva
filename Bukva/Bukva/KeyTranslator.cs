@@ -12,7 +12,7 @@ namespace Bukva
         FixedLengthQueue<string> buffer;
         LetterTable letterTable;
 
-        KeyPressListener keyPressListener;
+        KeyStateListener keyPressListener;
 
         public KeyTranslator(LetterTable letterTable)
         {
@@ -20,7 +20,7 @@ namespace Bukva
             buffer.Clear("");
             this.letterTable = letterTable;
             
-            keyPressListener = new KeyPressListener();
+            keyPressListener = new KeyStateListener();
             keyPressListener.Listen = false;
             keyPressListener.OnKeyPressed += OnKeyPressed;
         }
