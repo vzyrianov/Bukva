@@ -34,6 +34,7 @@ namespace Bukva
         {
             callBackHandler = HookCallback;
             trap = false;
+            HookKeyboard();
         }
 
         public void HookKeyboard()
