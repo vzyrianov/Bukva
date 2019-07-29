@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -6,13 +7,10 @@ namespace Bukva
 {
     class KeyTranslator
     {
-        [DllImport("User32.dll")]
-        private static extern short GetAsyncKeyState(int vKey);
-
         FixedLengthQueue<string> buffer;
         LetterTable letterTable;
 
-        KeyStateListener keyPressListener;
+        KeyPressListener keyPressListener;
 
         public KeyTranslator(LetterTable letterTable)
         {
@@ -20,7 +18,8 @@ namespace Bukva
             buffer.Clear("");
             this.letterTable = letterTable;
             
-            keyPressListener = new KeyStateListener();
+            //keyPressListener = new KeyStateListener();
+            keyPressListener = new LowLevelKeyboardHook();
             keyPressListener.Listen = false;
             keyPressListener.OnKeyPressed += OnKeyPressed;
         }
@@ -40,7 +39,7 @@ namespace Bukva
         {
             string key = e.KeyPressed;
 
-            if (Control.ModifierKeys.HasFlag(Keys.Control))
+            if (Control.ModifierKeys.HasFlag(Keys.Control) || key == "none")
                 return;
 
             if (key == "back")
@@ -57,6 +56,7 @@ namespace Bukva
 
         private void HandleKeyPress(string key)
         {
+            Console.WriteLine("handling press");
             if (letterTable.ContainsKey(buffer.At(1) + buffer.At(2) + key))
             {
                 if (letterTable.ContainsKey(buffer.At(2)) || letterTable.ContainsKey(buffer.At(1) + buffer.At(2)))

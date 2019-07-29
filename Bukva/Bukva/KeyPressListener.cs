@@ -22,7 +22,7 @@ namespace Bukva
         public abstract void EmitBackspace();
     }
 
-    class LowLevelKeyboardHook : KeyPressListener, IDisposable
+    class LowLevelKeyboardHook : KeyPressListener , IDisposable
     {
 
         private Win32.CallBackHandler callBackHandler;
@@ -51,22 +51,29 @@ namespace Bukva
             Win32.UnhookWindowsHookEx(hookID);
         }
 
+        private bool userKey = true;
         private IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
+            if (userKey)
+                userKey = false;
+            else
+                return Win32.CallNextHookEx(hookID, nCode, wParam, lParam);
+
             if (nCode >= 0 && (wParam == (IntPtr)Win32.WM_KEYDOWN || wParam == (IntPtr)Win32.WM_SYSKEYDOWN) && Listen)
             {
                 int virtualKeyCode = Marshal.ReadInt32(lParam);
+                Console.WriteLine(virtualKeyCode.ToString());
                 Key pressedKey = KeyInterop.KeyFromVirtualKey(virtualKeyCode);
 
                 string key;
 
                 if (Control.ModifierKeys.HasFlag(Keys.Shift))
                 {
-                    key = Enum.GetName(typeof(Keys), pressedKey).ToUpper();
+                    key = pressedKey.ToString().ToUpper();
                 }
                 else
                 {
-                    key = Enum.GetName(typeof(Keys), pressedKey).ToLower();
+                    key = pressedKey.ToString().ToLower();
                 }
 
                 if (key.ToUpper() == "OEMPERIOD")
@@ -78,11 +85,13 @@ namespace Bukva
                 
                 if(trap) {
                     trap = false;
+                    userKey = true;
                     return (System.IntPtr)1;
                 }
             }
 
             trap = false;
+            userKey = true;
             return Win32.CallNextHookEx(hookID, nCode, wParam, lParam);
         }
 
@@ -93,12 +102,11 @@ namespace Bukva
 
         public override void EmitBackspace()
         {
-            ThreadPool.QueueUserWorkItem(Backspace);
+            Backspace();
         }
 
-        static void Backspace(Object stateInfo)
+        void Backspace()
         {
-            Thread.Sleep(400);
             SendKeys.SendWait("{BACKSPACE}");
         }
     }
