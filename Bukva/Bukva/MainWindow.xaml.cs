@@ -46,18 +46,5 @@ namespace Bukva
                 Enabled = false;
             }
         }
-
-        private void OffButtonClick(object sender, RoutedEventArgs e)
-        {
-            /*
-            button1.BackColor = Color.DeepSkyBlue;
-            button1.Font = new Font(button1.Font, FontStyle.Regular);
-            button1.ForeColor = Color.FromKnownColor(KnownColor.ControlDarkDark);
-            button2.BackColor = Color.SteelBlue;
-            button2.Font = new Font(button2.Font, FontStyle.Bold);
-            button2.ForeColor = Color.FromKnownColor(KnownColor.ControlText);*/
-            keyTranslator.Stop();
-            //this.Text = "Bukva: OFF";
-        }
     }
 }
