@@ -56,7 +56,6 @@ namespace Bukva
 
         private void HandleKeyPress(string key)
         {
-            Console.WriteLine("handling press");
             if (letterTable.ContainsKey(buffer.At(1) + buffer.At(2) + key))
             {
                 if (letterTable.ContainsKey(buffer.At(2)) || letterTable.ContainsKey(buffer.At(1) + buffer.At(2)))
@@ -126,8 +125,6 @@ namespace Bukva
             {
                 SendKeys.SendWait(letterTable[buffer.At(1)]);
                 SendKeys.SendWait(letterTable[buffer.At(2)]);
-                //With a low level keyboard hook backspace would delete this translation
-                //needs a workaround
             }
         }
     }
