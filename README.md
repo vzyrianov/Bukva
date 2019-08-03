@@ -1,7 +1,7 @@
 # Bukva
-A tool for live transliteration anywhere on Windows.
+Know how to type fast in one language? Bukva allows you to type fast in any language. 
 
-In other words, it allows you to type in other languages using a standard english keyboard.
+This is a tool for live transliteration anywhere on Windows.
 
 # Installation
 
