@@ -5,7 +5,7 @@ This is a tool for live transliteration anywhere on Windows.
 
 # Installation
 
-### [Download](https://github.com/vzyrianov/Bukva/files/3507716/bukva.zip)
+### Downloads are at: [bukva-translit.com](https://bukva-translit.com)
 
 To run you need the executable and a language file (.buk format) in the same folder.
 
