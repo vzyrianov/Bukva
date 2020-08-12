@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -16,7 +17,12 @@ namespace Bukva
 
         protected void RaiseKeyPressedEvent(string keyPressed)
         {
-            OnKeyPressed(this, new KeyPressedEventArgs(keyPressed));
+            OnKeyPressed(this, new KeyPressedEventArgs(keyPressed, false));
+        }
+
+        protected void RaiseKeyPressedEvent(string keyPressed, bool scrollLockPressed)
+        {
+            OnKeyPressed(this, new KeyPressedEventArgs(keyPressed, scrollLockPressed));
         }
 
         public abstract void DeleteLastKeyPressed();
@@ -88,7 +94,7 @@ namespace Bukva
                     key = ".";
                 }
 
-                RaiseKeyPressedEvent(key);
+                RaiseKeyPressedEvent(key, virtualKeyCode == 145 ? true : false);
                 
                 if(trap) {
                     trap = false;
@@ -187,10 +193,12 @@ namespace Bukva
     public class KeyPressedEventArgs : EventArgs
     {
         public string KeyPressed { get; private set; }
+        public bool ScrollLockPressed { get; private set; }
 
-        public KeyPressedEventArgs(string key)
+        public KeyPressedEventArgs(string key, bool scrollLockPressed)
         {
             KeyPressed = key;
+            ScrollLockPressed = scrollLockPressed;
         }
     }
 }

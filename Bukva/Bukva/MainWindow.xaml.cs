@@ -13,7 +13,7 @@ namespace Bukva
     /// </summary>
     public partial class MainWindow : Window
     {
-        KeyTranslator keyTranslator;
+        IKeyTranslator keyTranslator;
         LetterTable letterTable;
         bool Enabled;
 
@@ -24,7 +24,7 @@ namespace Bukva
             Enabled = false;
 
             letterTable = new LetterTable();
-            keyTranslator = new KeyTranslator(letterTable);
+            keyTranslator = new LowLevelKeyTranslator(letterTable);
             StatusLabel.Content = "Language: \n" + letterTable.Filename;
             
         }
