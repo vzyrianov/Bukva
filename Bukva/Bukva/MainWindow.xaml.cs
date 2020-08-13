@@ -16,6 +16,7 @@ namespace Bukva
         IKeyTranslator keyTranslator;
         LetterTable letterTable;
         bool Enabled;
+        LowLevelKeyboardHook scrollLockListener;
 
         public MainWindow()
         {
@@ -26,25 +27,51 @@ namespace Bukva
             letterTable = new LetterTable();
             keyTranslator = new LowLevelKeyTranslator(letterTable);
             StatusLabel.Content = "Language: \n" + letterTable.Filename;
-            
+
+            scrollLockListener = new LowLevelKeyboardHook();
+            scrollLockListener.Listen = true;
+            scrollLockListener.OnKeyPressed += OnKeyPressed;
+
         }
 
         private void ToggleButtonClick(object sender, RoutedEventArgs e)
         {
+            Toggle();
+        }
+
+        private void Toggle()
+        {
             if (!Enabled)
             {
-                keyTranslator.Start();
-                ToggleButton.Background = Brushes.DeepSkyBlue;
-                ToggleButton.Content = "On";
-                Enabled = true;
+                Enable();
             }
             else
             {
-                keyTranslator.Stop();
-                ToggleButton.Background = Brushes.SteelBlue;
-                ToggleButton.Content = "Off";
-                Enabled = false;
+                Disable();
             }
+
+        }
+
+        private void Enable()
+        {
+            keyTranslator.Start();
+            ToggleButton.Background = Brushes.DeepSkyBlue;
+            ToggleButton.Content = "On";
+            Enabled = true;
+        }
+
+        private void Disable()
+        {
+            keyTranslator.Stop();
+            ToggleButton.Background = Brushes.SteelBlue;
+            ToggleButton.Content = "Off";
+            Enabled = false;
+        }
+
+        private void OnKeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            if (e.ScrollLockPressed)
+                Toggle();
         }
     }
 }

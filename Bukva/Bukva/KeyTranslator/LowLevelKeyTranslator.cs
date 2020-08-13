@@ -10,8 +10,6 @@ namespace Bukva
 
         KeyPressListener keyPressListener;
 
-        public bool Translate { get; set; }
-
         public LowLevelKeyTranslator(LetterTable letterTable)
         {
             buffer = new FixedLengthQueue<string>(3);
@@ -38,15 +36,6 @@ namespace Bukva
         private void OnKeyPressed(object sender, KeyPressedEventArgs e)
         {
             string key = e.KeyPressed;
-
-            if (e.ScrollLockPressed)
-            {
-                Translate = !Translate;
-                return;
-            }
-
-            if (!Translate)
-                return;
             
 
             if (Control.ModifierKeys.HasFlag(Keys.Control) || key == "none" || key == "")
