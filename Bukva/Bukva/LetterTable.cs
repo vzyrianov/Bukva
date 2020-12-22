@@ -8,11 +8,17 @@ namespace Bukva
     {
         public string Filename { get; private set; }
 
+
+        //Empty Letter table
         public LetterTable() : base()
         {
-            List<string> list = GetCandidateFiles();
-            Filename = list[0].Split('\\').Last();
-            ReadInFromFile(list[0]);
+
+        }
+
+        public LetterTable(string filename) : base()
+        {
+            Filename = filename.Split('\\').Last();
+            ReadInFromFile(filename);
         }
 
         public void ReadInFromFile(string filename)
@@ -34,7 +40,7 @@ namespace Bukva
             }
         }
 
-        List<string> GetCandidateFiles()
+        public static List<string> GetCandidateFiles()
         {
             List<string> languageFiles = new List<string>();
             string[] files = Directory.GetFiles(".");

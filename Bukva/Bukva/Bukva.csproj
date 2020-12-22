@@ -59,6 +59,9 @@
     <Compile Include="KeyTranslator\IKeyTranslator.cs" />
     <Compile Include="KeyTranslator\KeyStateKeyTranslator.cs" />
     <Compile Include="KeyTranslator\LowLevelKeyTranslator.cs" />
+    <Compile Include="PackageManager.xaml.cs">
+      <DependentUpon>PackageManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Win32.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -75,6 +78,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PackageManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

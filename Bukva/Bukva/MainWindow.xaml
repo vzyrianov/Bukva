@@ -5,10 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bukva"
         mc:Ignorable="d"
-        Title="Bukva" Height="127.768" Width="244.905" ResizeMode="CanMinimize">
+        Title="Bukva" Height="150" Width="310" ResizeMode="CanMinimize">
     <Grid>
-        <Button Name="ToggleButton" Background="SteelBlue" Content="Off" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Height="99" Click="ToggleButtonClick"/>
+        <Button Name="ToggleButton" Background="SteelBlue" Content="Off" HorizontalAlignment="Left" VerticalAlignment="Top" Width="133" Height="121" Click="ToggleButtonClick"/>
         <Label Name="StatusLabel" Content="Language" HorizontalAlignment="Left" Margin="133,14,0,0" VerticalAlignment="Top" Width="87"/>
-
+        <Label Name="LanguageLabel" Content="Russian" HorizontalAlignment="Left" Margin="161,40,0,0" VerticalAlignment="Top" Width="87"/>
+        <Button Name="MoveLeft"  Content="←" Margin="133,43,148,0" VerticalAlignment="Top" Width="Auto" Click="MoveLeftClick"/>
+        <Button Name="MoveRight"  Content="→" Margin="253,43,28,0" VerticalAlignment="Top" Width="Auto" Click="MoveRightClick"/>
+        <Button Content="Manage Languages" HorizontalAlignment="Left" Margin="138,91,0,0" VerticalAlignment="Top" Width="113" Click="ManageLanguagesClicked"/>
     </Grid>
 </Window>

@@ -1,0 +1,20 @@
+﻿<Window x:Class="Bukva.PackageManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bukva"
+        mc:Ignorable="d"
+        Title="PackageManager" Height="392.818" Width="318.301" ResizeMode="NoResize">
+    <Grid>
+        <ListBox Name="OnlineFiles" Margin="0,51,192,94">
+        </ListBox>
+        <Label Content="Online" HorizontalAlignment="Left" Margin="21,0,0,0" VerticalAlignment="Top" Width="64"/>
+        <ListBox Name="LocalFiles" Margin="192,51,0,94"/>
+        <Label Content="Local" HorizontalAlignment="Left" Margin="230,0,0,0" VerticalAlignment="Top" Width="64"/>
+        <Button Content="→&#10;download" HorizontalAlignment="Left" Margin="123,130,0,0" VerticalAlignment="Top" Width="58" Height="39" Click="DownloadButtonClick"/>
+        <Button Content="Open Directory" HorizontalAlignment="Left" Margin="198,26,0,0" VerticalAlignment="Top" Width="109" Click="OpenDirectorButton"/>
+        <Button Content="Delete Selected" HorizontalAlignment="Left" Margin="198,283,0,0" VerticalAlignment="Top" Width="109" Click="DeleteButton"/>
+
+    </Grid>
+</Window>

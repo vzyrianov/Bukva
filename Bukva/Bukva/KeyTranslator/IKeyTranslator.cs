@@ -10,5 +10,6 @@ namespace Bukva
     {
         void Start();
         void Stop();
+        void SetLetterTable(LetterTable newLetterTable);
     }
 }

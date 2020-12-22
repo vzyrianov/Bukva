@@ -5,6 +5,9 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Net;
+using System.IO;
 
 namespace Bukva
 {
@@ -14,19 +17,29 @@ namespace Bukva
     public partial class MainWindow : Window
     {
         IKeyTranslator keyTranslator;
-        LetterTable letterTable;
         bool Enabled;
         LowLevelKeyboardHook scrollLockListener;
 
+
+        List<LetterTable> translationTables;
+        int index;
+
+        PackageManager packageManager;
+
         public MainWindow()
         {
+
+
+            translationTables = new List<LetterTable>();
+            index = 0;
+
             InitializeComponent();
 
             Enabled = false;
+            keyTranslator = new LowLevelKeyTranslator(new LetterTable());
 
-            letterTable = new LetterTable();
-            keyTranslator = new LowLevelKeyTranslator(letterTable);
-            StatusLabel.Content = "Language: \n" + letterTable.Filename;
+            LoadFiles();
+            UpdateLetterTableToCurrentIndex();
 
             scrollLockListener = new LowLevelKeyboardHook();
             scrollLockListener.Listen = true;
@@ -34,10 +47,34 @@ namespace Bukva
 
         }
 
+        private void LoadFiles()
+        {
+            translationTables = new List<LetterTable>();
+
+            List<string> foundFiles = LetterTable.GetCandidateFiles();
+
+            foreach (string filename in foundFiles)
+            {
+                translationTables.Add(new LetterTable(filename));
+            }
+
+
+            index = index % translationTables.Count;
+        }
+
+        private void UpdateLetterTableToCurrentIndex()
+        {
+            LanguageLabel.Content = translationTables[index].Filename;
+            keyTranslator.SetLetterTable(translationTables[index]);
+        }
+
+
         private void ToggleButtonClick(object sender, RoutedEventArgs e)
         {
             Toggle();
         }
+
+
 
         private void Toggle()
         {
@@ -72,6 +109,40 @@ namespace Bukva
         {
             if (e.ScrollLockPressed)
                 Toggle();
+        }
+
+
+
+        private void MoveRightClick(object sender, RoutedEventArgs e)
+        {
+            index = (index + 1) % translationTables.Count;
+
+            UpdateLetterTableToCurrentIndex();
+        }
+
+        private void MoveLeftClick(object sender, RoutedEventArgs e)
+        {
+            index = index - 1;
+            
+            if (index == -1)
+            {
+                index = translationTables.Count - 1;
+            }
+
+            UpdateLetterTableToCurrentIndex();
+        }
+
+        private void PackageManagerClosed(object sender, System.EventArgs e)
+        {
+            LoadFiles();
+            UpdateLetterTableToCurrentIndex();
+        }
+
+        private void ManageLanguagesClicked(object sender, RoutedEventArgs e)
+        {
+            PackageManager pm = new PackageManager();
+            pm.Show();
+            pm.Closed += PackageManagerClosed;
         }
     }
 }

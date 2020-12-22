@@ -22,6 +22,11 @@ namespace Bukva
             keyPressListener.OnKeyPressed += OnKeyPressed;
         }
 
+        public void SetLetterTable(LetterTable newLetterTable)
+        {
+            letterTable = newLetterTable;
+        }
+
         public void Start()
         {
             keyPressListener.Listen = true;

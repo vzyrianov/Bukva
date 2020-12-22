@@ -3,6 +3,7 @@ using System.Windows.Forms;
 
 namespace Bukva
 {
+
     class KeyStateKeyTranslator
     {
         FixedLengthQueue<string> buffer;
@@ -20,6 +21,11 @@ namespace Bukva
             keyPressListener = new KeyStateListener();
             keyPressListener.Listen = false;
             keyPressListener.OnKeyPressed += OnKeyPressed;
+        }
+
+        public void SetLetterTable(LetterTable newLetterTable)
+        {
+            letterTable = newLetterTable;
         }
 
         public void Start()

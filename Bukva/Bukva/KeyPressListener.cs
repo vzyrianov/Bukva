@@ -111,6 +111,7 @@ namespace Bukva
         public override void DeleteLastKeyPressed()
         {
             trap = true;
+            //Backspace();
         }
 
         public override void EmitBackspace()
