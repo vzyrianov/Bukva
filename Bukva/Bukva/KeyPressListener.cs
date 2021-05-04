@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -15,7 +17,12 @@ namespace Bukva
 
         protected void RaiseKeyPressedEvent(string keyPressed)
         {
-            OnKeyPressed(this, new KeyPressedEventArgs(keyPressed));
+            OnKeyPressed(this, new KeyPressedEventArgs(keyPressed, false));
+        }
+
+        protected void RaiseKeyPressedEvent(string keyPressed, bool scrollLockPressed)
+        {
+            OnKeyPressed(this, new KeyPressedEventArgs(keyPressed, scrollLockPressed));
         }
 
         public abstract void DeleteLastKeyPressed();
@@ -24,14 +31,17 @@ namespace Bukva
 
     class LowLevelKeyboardHook : KeyPressListener , IDisposable
     {
-
         private Win32.CallBackHandler callBackHandler;
         private IntPtr hookID = IntPtr.Zero;
 
         private bool trap;
 
+        private byte[] keyboardState;
+        private StringBuilder converterBuffer;
+
         public LowLevelKeyboardHook()
         {
+
             callBackHandler = HookCallback;
             trap = false;
             HookKeyboard();
@@ -51,6 +61,19 @@ namespace Bukva
             Win32.UnhookWindowsHookEx(hookID);
         }
 
+        private string VirtualKeyToString(int virtualKeyCode)
+        {
+            keyboardState = new byte[256];
+            if (Control.ModifierKeys.HasFlag(Keys.Shift))
+                keyboardState[(int) Keys.ShiftKey] = 0xff; 
+            //else
+                //keyboardState[(int) Keys.ShiftKey] = 0x0;
+
+            converterBuffer = new StringBuilder(256);
+            Win32.ToUnicode((uint)virtualKeyCode, 0, keyboardState, converterBuffer, 256, 0);
+            return converterBuffer.ToString();
+        }
+
         private bool userKey = true;
         private IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
@@ -62,26 +85,16 @@ namespace Bukva
             if (nCode >= 0 && (wParam == (IntPtr)Win32.WM_KEYDOWN || wParam == (IntPtr)Win32.WM_SYSKEYDOWN) && Listen)
             {
                 int virtualKeyCode = Marshal.ReadInt32(lParam);
-                Console.WriteLine(virtualKeyCode.ToString());
-                Key pressedKey = KeyInterop.KeyFromVirtualKey(virtualKeyCode);
 
-                string key;
-
-                if (Control.ModifierKeys.HasFlag(Keys.Shift))
-                {
-                    key = pressedKey.ToString().ToUpper();
-                }
-                else
-                {
-                    key = pressedKey.ToString().ToLower();
-                }
+                string key = VirtualKeyToString(virtualKeyCode);
+                Console.WriteLine(key);
 
                 if (key.ToUpper() == "OEMPERIOD")
                 {
                     key = ".";
                 }
 
-                RaiseKeyPressedEvent(key);
+                RaiseKeyPressedEvent(key, virtualKeyCode == 145 ? true : false);
                 
                 if(trap) {
                     trap = false;
@@ -98,6 +111,7 @@ namespace Bukva
         public override void DeleteLastKeyPressed()
         {
             trap = true;
+            //Backspace();
         }
 
         public override void EmitBackspace()
@@ -180,10 +194,12 @@ namespace Bukva
     public class KeyPressedEventArgs : EventArgs
     {
         public string KeyPressed { get; private set; }
+        public bool ScrollLockPressed { get; private set; }
 
-        public KeyPressedEventArgs(string key)
+        public KeyPressedEventArgs(string key, bool scrollLockPressed)
         {
             KeyPressed = key;
+            ScrollLockPressed = scrollLockPressed;
         }
     }
 }

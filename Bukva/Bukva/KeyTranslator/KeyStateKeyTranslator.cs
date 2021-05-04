@@ -1,27 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Bukva
 {
-    class KeyTranslator
+
+    class KeyStateKeyTranslator
     {
         FixedLengthQueue<string> buffer;
         LetterTable letterTable;
 
         KeyPressListener keyPressListener;
 
-        public KeyTranslator(LetterTable letterTable)
+        public KeyStateKeyTranslator(LetterTable letterTable)
         {
             buffer = new FixedLengthQueue<string>(3);
             buffer.Clear("");
             this.letterTable = letterTable;
-            
+
             //keyPressListener = new KeyStateListener();
-            keyPressListener = new LowLevelKeyboardHook();
+            keyPressListener = new KeyStateListener();
             keyPressListener.Listen = false;
             keyPressListener.OnKeyPressed += OnKeyPressed;
+        }
+
+        public void SetLetterTable(LetterTable newLetterTable)
+        {
+            letterTable = newLetterTable;
         }
 
         public void Start()
@@ -42,7 +46,9 @@ namespace Bukva
             if (Control.ModifierKeys.HasFlag(Keys.Control) || key == "none")
                 return;
 
-            if (key == "back")
+            Console.WriteLine(key);
+
+            if (key == "\b" || key == "back")
             {
                 HandleUndo();
             }
